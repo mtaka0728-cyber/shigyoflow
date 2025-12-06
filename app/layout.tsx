@@ -11,7 +11,11 @@ export default function RootLayout({
   const pathname = usePathname();// 現在のパスを取得
 
   // 現在のページかどうかを判定
-  const isActive = (path: string) => pathname === path;// 現在のパスが引数のパスと一致するかどうかとアクティブかどうかを判定
+  const isActive = (path: string) => {
+    // basePath を除いたパスで比較
+    const currentPath = pathname.replace('/shigyoflow', '');
+    return currentPath === path || pathname === path;
+  };
 
   return (
     <html lang="ja">
@@ -32,7 +36,7 @@ export default function RootLayout({
                 {/* 顧客一覧 */}
                 <li>
                   <Link
-                    href="/clients"
+                    href="clients"
                     className={`
                       flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all
                       ${
@@ -62,7 +66,7 @@ export default function RootLayout({
                 {/* 案件ボード */}
                 <li>
                   <Link
-                    href="/cases"
+                    href="cases"
                     className={`
                       flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all
                       ${
